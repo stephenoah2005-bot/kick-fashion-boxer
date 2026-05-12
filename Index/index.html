@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>KICK FASHION BOXER</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,600;0,700;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0a0a0a;
+    --off-black: #111111;
+    --card-bg: #161616;
+    --yellow: #F5E642;
+    --yellow-dim: #c4b82a;
+    --white: #F0EDE6;
+    --muted: #888880;
+    --border: rgba(245,230,66,0.18);
+    --ff-display: 'Bebas Neue', sans-serif;
+    --ff-body: 'Barlow', sans-serif;
+    --ff-mono: 'Space Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--ff-body);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+    cursor: crosshair;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 4rem;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: var(--ff-display);
+    font-size: 1.6rem;
+    letter-spacing: 0.04em;
+    color: var(--yellow);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: var(--ff-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--white);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.2s, color 0.2s;
+  }
+
+  .nav-links a:hover { opacity: 1; color: var(--yellow); }
+
+  .nav-cta {
+    font-family: var(--ff-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--black);
+    background: var(--yellow);
+    border: none;
+    padding: 0.55rem 1.4rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--yellow-dim); }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    position: relative;
+    overflow: hidden;
+    padding: 8rem 4rem 4rem;
+  }
+
+  .hero-bg-text {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--ff-display);
+    font-size: clamp(10rem, 22vw, 22rem);
+    letter-spacing: -0.02em;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(245,230,66,0.06);
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    max-width: 1200px;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-left {}
+
+  .hero-tag {
+    font-family: var(--ff-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.2s forwards;
+  }
+
+  .hero-title {
+    font-family: var(--ff-display);
+    font-size: clamp(4rem, 8vw, 8rem);
+    line-height: 0.92;
+    letter-spacing: 0.01em;
+    color: var(--white);
+    opacity: 0;
+    animation: fadeUp 0.7s 0.4s forwards;
+  }
+
+  .hero-title span { color: var(--yellow); display: block; }
+
+  .hero-desc {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 420px;
+    margin-top: 2rem;
+    line-height: 1.75;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.6s forwards;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.8s forwards;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    font-family: var(--ff-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--black);
+    background: var(--yellow);
+    padding: 0.8rem 2rem;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { background: var(--yellow-dim); transform: translateY(-2px); }
+
+  .btn-ghost {
+    display: inline-block;
+    font-family: var(--ff-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--white);
+    border: 1px solid rgba(240,237,230,0.3);
+    padding: 0.8rem 2rem;
+    text-decoration: none;
+    transition: border-color 0.2s, transform 0.15s;
+  }
+  .btn-ghost:hover { border-color: var(--yellow); color: var(--yellow); transform: translateY(-2px); }
+
+  .hero-right {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    animation: fadeIn 1s 0.5s forwards;
+  }
+
+  .hero-visual {
+    width: 340px;
+    height: 420px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-visual::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 8px,
+      rgba(245,230,66,0.03) 8px,
+      rgba(245,230,66,0.03) 9px
+    );
+  }
+
+  .hero-visual-text {
+    position: absolute;
+    bottom: 2rem;
+    left: 2rem;
+    right: 2rem;
+  }
+
+  .hero-visual-label {
+    font-family: var(--ff-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-visual-big {
+    font-family: var(--ff-display);
+    font-size: 3.5rem;
+    line-height: 1;
+    color: var(--white);
+  }
+
+  .floating-badge {
+    position: absolute;
+    top: -1rem;
+    right: -1.5rem;
+    background: var(--yellow);
+    color: var(--black);
+    font-family: var(--ff-display);
+    font-size: 0.9rem;
+    letter-spacing: 0.06em;
+    padding: 0.5rem 1rem;
+    transform: rotate(3deg);
+    z-index: 3;
+  }
+
+  .corner-accent {
+    position: absolute;
+    bottom: -0.5rem;
+    left: -1rem;
+    width: 60px;
+    height: 60px;
+    border: 2px solid var(--yellow);
+    z-index: 3;
+  }
+
+  /* SCROLL INDICATOR */
+  .scroll-hint {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0;
+    animation: fadeIn 1s 1.2s forwards;
+  }
+
+  .scroll-hint span {
+    font-family: var(--ff-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--yellow), transparent);
+    animation: scrollPulse 1.8s infinite;
+  }
+
+  /* TICKER */
+  .ticker-wrap {
+    background: var(--yellow);
+    overflow: hidden;
+    padding: 0.6rem 0;
+    white-space: nowrap;
+  }
+
+  .ticker-inner {
+    display: inline-flex;
+    animation: ticker 18s linear infinite;
+  }
+
+  .ticker-item {
+    font-family: var(--ff-display);
+    font-size: 1rem;
+    letter-spacing: 0.12em;
+    color: var(--black);
+    padding: 0 2.5rem;
+  }
+
+  .ticker-dot {
+    color: var(--black);
+    opacity: 0.4;
+  }
+
+  /* ABOUT */
+  #about {
+    padding: 8rem 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: var(--ff-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 1.5rem;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: start;
+  }
+
+  .about-title {
+    font-family: var(--ff-display);
+    font-size: clamp(3rem, 5vw, 5rem);
+    line-height: 0.95;
+    color: var(--white);
+    margin-bottom: 2rem;
+  }
+
+  .about-text {
+    font-size: 1.05rem;
+    color: var(--muted);
+    line-height: 1.85;
+  }
+
+  .about-text + .about-text { margin-top: 1.25rem; }
+
+  .about-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .stat-box {
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    position: relative;
+  }
+
+  .stat-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 100%;
+    background: var(--yellow);
+  }
+
+  .stat-num {
+    font-family: var(--ff-display);
+    font-size: 2.8rem;
+    color: var(--yellow);
+    line-height: 1;
+    display: block;
+  }
+
+  .stat-label {
+    font-family: var(--ff-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 0.4rem;
+    display: block;
+  }
+
+  .mission-block {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    padding: 2.5rem;
+    position: relative;
+  }
+
+  .mission-block::after {
+    content: '"';
+    font-family: var(--ff-display);
+    font-size: 8rem;
+    color: var(--yellow);
+    opacity: 0.12;
+    position: absolute;
+    top: -1rem;
+    right: 1.5rem;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .mission-title {
+    font-family: var(--ff-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 1rem;
+  }
+
+  .mission-text {
+    font-family: var(--ff-body);
+    font-style: italic;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--white);
+  }
+
+  .values-list {
+    margin-top: 2rem;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .values-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+
+  .values-list li::before {
+    content: '';
+    width: 20px;
+    height: 1px;
+    background: var(--yellow);
+    flex-shrink: 0;
+  }
+
+  /* COLLECTIONS */
+  #collections {
+    padding: 6rem 4rem;
+    background: var(--off-black);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .collections-header {
+    max-width: 1200px;
+    margin: 0 auto 3rem;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+
+  .collections-title {
+    font-family: var(--ff-display);
+    font-size: clamp(2.5rem, 4.5vw, 4.5rem);
+    line-height: 0.95;
+    color: var(--white);
+  }
+
+  .collections-note {
+    font-family: var(--ff-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    text-transform: uppercase;
+    max-width: 200px;
+    text-align: right;
+    line-height: 1.7;
+  }
+
+  .cards-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    position: relative;
+    transition: border-color 0.3s, transform 0.3s;
+    cursor: pointer;
+  }
+
+  .card:hover { border-color: var(--yellow); transform: translateY(-6px); }
+
+  .card-img {
+    height: 280px;
+    background: #1a1a1a;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card-placeholder {
+    font-family: var(--ff-display);
+    font-size: 5rem;
+    color: rgba(245,230,66,0.15);
+    letter-spacing: -0.02em;
+  }
+
+  .card-pattern {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 12px,
+      rgba(245,230,66,0.025) 12px,
+      rgba(245,230,66,0.025) 13px
+    );
+  }
+
+  .card-tag-top {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: var(--yellow);
+    color: var(--black);
+    font-family: var(--ff-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.6rem;
+  }
+
+  .card-body {
+    padding: 1.25rem 1.5rem 1.5rem;
+  }
+
+  .card-category {
+    font-family: var(--ff-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 0.4rem;
+  }
+
+  .card-name {
+    font-family: var(--ff-display);
+    font-size: 1.4rem;
+    color: var(--white);
+    letter-spacing: 0.02em;
+  }
+
+  .card-desc {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-top: 0.5rem;
+    line-height: 1.6;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .card-price {
+    font-family: var(--ff-display);
+    font-size: 1.3rem;
+    color: var(--white);
+  }
+
+  .card-btn {
+    font-family: var(--ff-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    background: transparent;
+    border: 1px solid rgba(245,230,66,0.35);
+    padding: 0.4rem 0.9rem;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+  }
+  .card-btn:hover { background: var(--yellow); color: var(--black); }
+
+  /* WHY US */
+  #why {
+    padding: 8rem 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    margin-top: 3.5rem;
+  }
+
+  .why-item {
+    padding: 2rem 1.5rem;
+    border: 1px solid var(--border);
+    position: relative;
+    transition: border-color 0.3s;
+  }
+
+  .why-item:hover { border-color: rgba(245,230,66,0.4); }
+
+  .why-num {
+    font-family: var(--ff-display);
+    font-size: 3.5rem;
+    color: rgba(245,230,66,0.12);
+    line-height: 1;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+  }
+
+  .why-icon {
+    width: 36px;
+    height: 36px;
+    margin-bottom: 1.25rem;
+    stroke: var(--yellow);
+    fill: none;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .why-title {
+    font-family: var(--ff-display);
+    font-size: 1.3rem;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.02em;
+  }
+
+  .why-desc {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* CONTACT */
+  #contact {
+    padding: 8rem 4rem;
+    background: var(--off-black);
+    border-top: 1px solid var(--border);
+  }
+
+  .contact-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: start;
+  }
+
+  .contact-title {
+    font-family: var(--ff-display);
+    font-size: clamp(3rem, 5vw, 5rem);
+    line-height: 0.95;
+    color: var(--white);
+    margin-bottom: 1.5rem;
+  }
+
+  .contact-title span { color: var(--yellow); display: block; }
+
+  .contact-sub {
+    font-size: 1rem;
+    color: var(--muted);
+    line-height: 1.75;
+    max-width: 380px;
+  }
+
+  .contact-details {
+    margin-top: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .contact-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .contact-icon {
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .contact-icon svg {
+    width: 18px;
+    height: 18px;
+    stroke: var(--yellow);
+    fill: none;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .contact-info-label {
+    font-family: var(--ff-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .contact-info-val {
+    font-size: 0.95rem;
+    color: var(--white);
+    margin-top: 0.1rem;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  a.contact-info-val:hover { color: var(--yellow); }
+
+  /* FORM */
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .form-label {
+    font-family: var(--ff-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .form-input, .form-textarea {
+    background: var(--card-bg);
+    border: 1px solid rgba(245,230,66,0.2);
+    color: var(--white);
+    font-family: var(--ff-body);
+    font-size: 0.95rem;
+    padding: 0.85rem 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+    resize: none;
+    width: 100%;
+  }
+
+  .form-input:focus, .form-textarea:focus { border-color: var(--yellow); }
+  .form-input::placeholder, .form-textarea::placeholder { color: rgba(136,136,128,0.5); }
+
+  .form-textarea { min-height: 110px; }
+
+  .form-submit {
+    font-family: var(--ff-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--black);
+    background: var(--yellow);
+    border: none;
+    padding: 1rem 2rem;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    align-self: flex-start;
+  }
+
+  .form-submit:hover { background: var(--yellow-dim); transform: translateY(-2px); }
+
+  /* FOOTER */
+  footer {
+    background: var(--black);
+    border-top: 1px solid var(--border);
+    padding: 3rem 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-logo {
+    font-family: var(--ff-display);
+    font-size: 1.4rem;
+    letter-spacing: 0.04em;
+    color: var(--yellow);
+  }
+
+  .footer-copy {
+    font-family: var(--ff-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .footer-links a {
+    font-family: var(--ff-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--yellow); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 1; height: 40px; }
+    50% { opacity: 0.3; height: 20px; }
+  }
+
+  /* REVEAL */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+
+    #hero { padding: 7rem 1.5rem 4rem; }
+    .hero-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .hero-right { display: none; }
+
+    #about { padding: 5rem 1.5rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+
+    #collections { padding: 5rem 1.5rem; }
+    .collections-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .cards-grid { grid-template-columns: 1fr; }
+
+    #why { padding: 5rem 1.5rem; }
+    .why-grid { grid-template-columns: 1fr 1fr; }
+
+    #contact { padding: 5rem 1.5rem; }
+    .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+
+    footer { flex-direction: column; gap: 1rem; padding: 2rem 1.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">KFB</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#collections">Collections</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Order Now</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-text" aria-hidden="true">KICK</div>
+
+  <div class="hero-grid">
+    <div class="hero-left">
+      <p class="hero-tag">Greater Noida &nbsp;·&nbsp; Est. 2026</p>
+      <h1 class="hero-title">
+        KICK<br/>
+        <span>FASHION</span>
+        BOXER
+      </h1>
+      <p class="hero-desc">
+        Premium fashion for the youth. Bold styles, modern cuts, and streetwear confidence — delivered straight from Greater Noida.
+      </p>
+      <div class="hero-actions">
+        <a href="#collections" class="btn-primary">Explore Collections</a>
+        <a href="#about" class="btn-ghost">Our Story</a>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="hero-visual">
+        <div class="card-pattern"></div>
+        <div class="hero-visual-text">
+          <p class="hero-visual-label">Current Drop</p>
+          <p class="hero-visual-big">SS<br/>'26</p>
+        </div>
+      </div>
+      <div class="floating-badge">New Drop</div>
+      <div class="corner-accent"></div>
+    </div>
+  </div>
+
+  <div class="scroll-hint" aria-hidden="true">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap" aria-hidden="true">
+  <div class="ticker-inner">
+    <span class="ticker-item">KICK FASHION BOXER</span>
+    <span class="ticker-item ticker-dot">✦</span>
+    <span class="ticker-item">STYLE IS CONFIDENCE</span>
+    <span class="ticker-item ticker-dot">✦</span>
+    <span class="ticker-item">GREATER NOIDA</span>
+    <span class="ticker-item ticker-dot">✦</span>
+    <span class="ticker-item">PREMIUM YOUTH FASHION</span>
+    <span class="ticker-item ticker-dot">✦</span>
+    <span class="ticker-item">KICK FASHION BOXER</span>
+    <span class="ticker-item ticker-dot">✦</span>
+    <span class="ticker-item">STYLE IS CONFIDENCE</span>
+    <span class="ticker-item ticker-dot">✦</span>
+    <span class="ticker-item">GREATER NOIDA</span>
+    <span class="ticker-item ticker-dot">✦</span>
+    <span class="ticker-item">PREMIUM YOUTH FASHION</span>
+    <span class="ticker-item ticker-dot">✦</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="reveal">
+      <p class="section-label">Our Story</p>
+      <h2 class="about-title">BORN TO<br/>STAND OUT</h2>
+      <p class="about-text">
+        Based in Greater Noida, KICK FASHION BOXER was built on one idea: fashion should feel like power. We design modern styles that move with you — on the street, in the studio, or wherever life takes you.
+      </p>
+      <p class="about-text">
+        Every piece in our collection is chosen with intention, crafted for the youth who refuse to blend in and the fashion lovers who know that what you wear says everything.
+      </p>
+
+      <div class="about-stats">
+        <div class="stat-box">
+          <span class="stat-num">100%</span>
+          <span class="stat-label">Premium Quality</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-num">UP</span>
+          <span class="stat-label">Rooted in India</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-num">2026</span>
+          <span class="stat-label">Launched</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-num">∞</span>
+          <span class="stat-label">Style Possibilities</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal" style="transition-delay: 0.15s;">
+      <div class="mission-block">
+        <p class="mission-title">Our Mission</p>
+        <p class="mission-text">
+          To bring confidence, creativity, and modern fashion trends to customers through premium clothing and stylish collections that inspire the next generation.
+        </p>
+        <ul class="values-list">
+          <li>Confidence in every stitch</li>
+          <li>Creativity as our design language</li>
+          <li>Modern trends, timeless identity</li>
+          <li>Fashion that speaks for the youth</li>
+          <li>Accessible luxury from Greater Noida</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COLLECTIONS -->
+<section id="collections">
+  <div class="collections-header reveal">
+    <div>
+      <p class="section-label">Featured Collections</p>
+      <h2 class="collections-title">WHAT WE<br/>DROP</h2>
+    </div>
+    <p class="collections-note">Fresh styles for fresh minds. New drops every season.</p>
+  </div>
+
+  <div class="cards-grid">
+    <div class="card reveal">
+      <div class="card-img">
+        <div class="card-pattern"></div>
+        <span class="card-placeholder">KFB</span>
+        <span class="card-tag-top">New</span>
+      </div>
+      <div class="card-body">
+        <p class="card-category">Streetwear</p>
+        <h3 class="card-name">Signature Drop Tee</h3>
+        <p class="card-desc">Bold graphics, heavyweight fabric, and a fit that turns heads. The KFB classic.</p>
+        <div class="card-footer">
+          <span class="card-price">₹799</span>
+          <button class="card-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Order</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal" style="transition-delay: 0.1s;">
+      <div class="card-img">
+        <div class="card-pattern"></div>
+        <span class="card-placeholder">KFB</span>
+        <span class="card-tag-top">Hot</span>
+      </div>
+      <div class="card-body">
+        <p class="card-category">Outerwear</p>
+        <h3 class="card-name">Urban Bomber Jacket</h3>
+        <p class="card-desc">Street-ready bomber with custom KFB branding. Wear it loud, wear it proud.</p>
+        <div class="card-footer">
+          <span class="card-price">₹2,499</span>
+          <button class="card-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Order</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal" style="transition-delay: 0.2s;">
+      <div class="card-img">
+        <div class="card-pattern"></div>
+        <span class="card-placeholder">KFB</span>
+      </div>
+      <div class="card-body">
+        <p class="card-category">Bottoms</p>
+        <h3 class="card-name">Cargo Fighter Pants</h3>
+        <p class="card-desc">Multi-pocket cargo pants built for style and movement. The youth uniform.</p>
+        <div class="card-footer">
+          <span class="card-price">₹1,299</span>
+          <button class="card-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Order</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="why">
+  <p class="section-label reveal">Why Choose KFB</p>
+  <h2 class="collections-title reveal">THE KFB<br/>DIFFERENCE</h2>
+
+  <div class="why-grid">
+    <div class="why-item reveal">
+      <span class="why-num" aria-hidden="true">01</span>
+      <svg class="why-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+      </svg>
+      <h3 class="why-title">Premium Quality</h3>
+      <p class="why-desc">Every piece is carefully sourced and quality-checked before it reaches you.</p>
+    </div>
+
+    <div class="why-item reveal" style="transition-delay: 0.1s;">
+      <span class="why-num" aria-hidden="true">02</span>
+      <svg class="why-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="3"/>
+        <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
+      </svg>
+      <h3 class="why-title">Trend-Forward</h3>
+      <p class="why-desc">Always ahead of the curve. KFB brings the latest global styles to your doorstep.</p>
+    </div>
+
+    <div class="why-item reveal" style="transition-delay: 0.2s;">
+      <span class="why-num" aria-hidden="true">03</span>
+      <svg class="why-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/>
+      </svg>
+      <h3 class="why-title">Direct Orders</h3>
+      <p class="why-desc">Call or message us directly. No middlemen, no delays — just your order.</p>
+    </div>
+
+    <div class="why-item reveal" style="transition-delay: 0.3s;">
+      <span class="why-num" aria-hidden="true">04</span>
+      <svg class="why-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1118 0z"/>
+        <circle cx="12" cy="10" r="3"/>
+      </svg>
+      <h3 class="why-title">Local Roots</h3>
+      <p class="why-desc">Proudly based in Greater Noida — supporting local, dressing global.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="reveal">
+      <p class="section-label">Get In Touch</p>
+      <h2 class="contact-title">LET'S<br/><span>CONNECT</span></h2>
+      <p class="contact-sub">
+        Ready to place an order, collaborate, or just talk fashion? Reach out through any channel — we're always ready.
+      </p>
+
+      <div class="contact-details">
+        <div class="contact-row">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/>
+            </svg>
+          </div>
+          <div>
+            <p class="contact-info-label">Phone</p>
+            <a href="tel:9211974232" class="contact-info-val">+91 92119 74232</a>
+          </div>
+        </div>
+
+        <div class="contact-row">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+          </div>
+          <div>
+            <p class="contact-info-label">Email</p>
+            <a href="mailto:stephenoah2004@gmail.com" class="contact-info-val">stephenoah2004@gmail.com</a>
+          </div>
+        </div>
+
+        <div class="contact-row">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1118 0z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+          </div>
+          <div>
+            <p class="contact-info-label">Location</p>
+            <p class="contact-info-val">Greater Noida, Uttar Pradesh, India</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal" style="transition-delay: 0.15s;">
+      <div class="contact-form">
+        <div class="form-group">
+          <label class="form-label">Your Name</label>
+          <input type="text" class="form-input" placeholder="Full name" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone / Email</label>
+          <input type="text" class="form-input" placeholder="How should we reach you?" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">What are you looking for?</label>
+          <textarea class="form-textarea" placeholder="Order details, collaboration ideas, general inquiry..."></textarea>
+        </div>
+        <button class="form-submit" onclick="handleFormSubmit(this)">Send Message →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-logo">KICK FASHION BOXER</span>
+  <span class="footer-copy">© 2026 KFB — All Rights Reserved</span>
+  <div class="footer-links">
+    <a href="#about">About</a>
+    <a href="#collections">Collections</a>
+    <a href="#contact">Contact</a>
+  </div>
+</footer>
+
+<script>
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => observer.observe(el));
+
+  function handleFormSubmit(btn) {
+    btn.textContent = 'Message Sent ✓';
+    btn.style.background = '#3B6D11';
+    btn.style.color = '#C0DD97';
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.textContent = 'Send Message →';
+      btn.style.background = '';
+      btn.style.color = '';
+      btn.disabled = false;
+    }, 3000);
+  }
+</script>
+</body>
+</html>
